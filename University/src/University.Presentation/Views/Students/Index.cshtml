@@ -1,0 +1,42 @@
+@model IEnumerable<University.Application.ViewModels.StudentViewModel>
+
+@{
+    ViewData["Title"] = "Alunos";
+}
+
+<h1>Lista de Alunos</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Novo Aluno</a>
+</p>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Idade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.FullName</td>
+                <td>@student.Email</td>
+                <td>@student.Age</td>
+                <td>
+                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@student.Id">Detalhes</a>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@student.Id">Editar</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@student.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
