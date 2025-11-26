@@ -10,5 +10,6 @@ namespace University.Application.Interfaces {
     Task < StudentViewModel > CreateAsync(StudentViewModel vm);
     Task < StudentViewModel ? >UpdateAsync(Guid id, StudentViewModel vm);
     Task < bool > DeleteAsync(Guid id);
+    Task<IEnumerable<StudentViewModel>> SearchAsync(string term);
   }
 }
