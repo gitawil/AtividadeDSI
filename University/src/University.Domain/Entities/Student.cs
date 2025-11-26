@@ -1,38 +1,29 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace University.Domain.Entities {
   public class Student {
-    public Guid Id {
-      get;
-      private set;
-    }
+    public Guid Id { get; private set; }
 
-    [Required][StringLength(100)]
-    public string FullName {
-      get;
-      private set;
-    }
+    [Required]
+    [StringLength(100)]
+    public string FullName { get; private set; }
 
-    [Required][EmailAddress]
-    public string Email {
-      get;
-      private set;
-    }
+    [Required]
+    [EmailAddress]
+    public string Email { get; private set; }
 
     [Range(16, 120)]
-    public int Age {
-      get;
-      private set;
-    }
+    public int Age { get; private set; }
 
-    public DateTime CreatedAt {
-      get;
-      private set;
-    }
+    public DateTime CreatedAt { get; private set; }
 
-    // Construtor para EF
-    protected Student() {}
+    public ICollection<Matricula> Matriculas { get; private set; }
+
+    protected Student() {
+        Matriculas = new List<Matricula>();
+    }
 
     public Student(string fullName, string email, int age) {
       Id = Guid.NewGuid();
@@ -40,9 +31,10 @@ namespace University.Domain.Entities {
       SetEmail(email);
       SetAge(age);
       CreatedAt = DateTime.UtcNow;
+
+      Matriculas = new List<Matricula>();
     }
 
-    // Exemplo de encapsulamento de regras de dominio
     public void SetFullName(string fullName) {
       if (string.IsNullOrWhiteSpace(fullName)) throw new ArgumentException("Nome é obrigatório.");
       FullName = fullName.Trim();
