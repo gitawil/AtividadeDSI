@@ -33,6 +33,13 @@ namespace University.Application.Services {
       return list.Select(MapToVm);
     }
 
+    public async Task<IEnumerable<StudentViewModel>> SearchAsync(string term)
+{
+    var result = await _repo.SearchAsync(term);
+    return _mapper.Map<IEnumerable<StudentViewModel>>(result);
+}
+
+
     public async Task < StudentViewModel ? >GetByIdAsync(Guid id) {
       var s = await _repo.GetByIdAsync(id);
       return s == null ? null: MapToVm(s);
