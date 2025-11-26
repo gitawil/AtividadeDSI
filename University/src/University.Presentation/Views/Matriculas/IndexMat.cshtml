@@ -1,0 +1,44 @@
+@model IEnumerable<University.Application.ViewModels.MatriculaViewModel>
+
+@{
+    ViewBag.Title = "Matrículas do Aluno";
+    var studentId = ViewBag.StudentId;
+}
+
+<h2>Matrículas do Aluno</h2>
+
+<a asp-action="Create" asp-route-studentId="@studentId" class="btn btn-primary mb-3">
+    Nova Matrícula
+</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Curso</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.CourseName</td>
+                <td>@m.CreatedAt.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a class="btn btn-danger"
+                       asp-action="Delete"
+                       asp-route-id="@m.Id"
+                       asp-route-studentId="@studentId">
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Students" asp-action="Index" class="btn btn-secondary">
+    Voltar
+</a>
