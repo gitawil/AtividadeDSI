@@ -1,0 +1,25 @@
+@model University.Application.Requests.CreateMatriculaRequest
+
+@{
+    ViewBag.Title = "Nova Matrícula";
+    Model.StudentId = ViewBag.StudentId;
+}
+
+<h2>Nova Matrícula</h2>
+
+<form asp-action="Create" method="post">
+    <input type="hidden" asp-for="StudentId" />
+
+    <div class="mb-3">
+        <label asp-for="CourseName" class="form-label"></label>
+        <input asp-for="CourseName" class="form-control" />
+        <span asp-validation-for="CourseName" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a asp-action="Index" asp-route-studentId="@Model.StudentId" class="btn btn-secondary">Voltar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
