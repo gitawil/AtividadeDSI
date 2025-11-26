@@ -10,5 +10,6 @@ namespace University.Infrastructure.Repositories {
     Task AddAsync(Student s);
     Task UpdateAsync(Student s);
     Task RemoveAsync(Student s);
+    Task<IEnumerable<Student>> SearchAsync(string term);
   }
 }
