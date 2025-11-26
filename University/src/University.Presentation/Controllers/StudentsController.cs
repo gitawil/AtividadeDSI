@@ -12,6 +12,13 @@ namespace University.Presentation.Controllers {
       _service = service;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Search(string term)
+    {
+        var students = await _studentService.SearchAsync(term);
+        return PartialView("_StudentsTable", students); 
+    }
+
     // GET: /Students
     public async Task < IActionResult > Index() {
       var list = await _service.GetAllAsync();
