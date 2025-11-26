@@ -1,0 +1,33 @@
+@model IEnumerable<University.Application.ViewModels.StudentViewModel>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Idade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.FullName</td>
+                <td>@s.Email</td>
+                <td>@s.Age</td>
+                <td>
+                    <a class="btn btn-info"
+                       asp-controller="Matriculas"
+                       asp-action="Index"
+                       asp-route-studentId="@s.Id">
+                        Matrículas
+                    </a>
+
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@s.Id">Editar</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@s.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
