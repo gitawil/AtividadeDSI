@@ -22,6 +22,19 @@ namespace University.Infrastructure.Repositories {
       return await _db.Students.ToListAsync();
     }
 
+    public async Task<IEnumerable<Student>> SearchAsync(string term)
+{
+    if (string.IsNullOrWhiteSpace(term))
+        return await _context.Students.ToListAsync();
+
+    return await _context.Students
+        .Where(s =>
+            s.FullName.Contains(term) ||
+            s.Email.Contains(term)
+        )
+        .ToListAsync();
+}
+
     public async Task < Student ? >GetByIdAsync(Guid id) {
       return await _db.Students.FindAsync(id);
     }
