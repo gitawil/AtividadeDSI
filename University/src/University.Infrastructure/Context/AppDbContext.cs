@@ -1,20 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using University.Domain.Entities;
+using System.Reflection;
 
-namespace University.Infrastructure.Persistence {
-  public class AppDbContext: DbContext {
-    public AppDbContext(DbContextOptions < AppDbContext > options) : base(options) {}
+namespace University.Infrastructure.Persistence
+{
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
 
-    public DbSet < Student > Students {
-      get;
-      set;
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Matricula> Matriculas { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder) {
-      base.OnModelCreating(modelBuilder);
-      modelBuilder.Entity < Student > ().HasKey(s =>s.Id);
-      modelBuilder.Entity < Student > ().Property(s =>s.FullName).HasMaxLength(100).IsRequired();
-      modelBuilder.Entity < Student > ().Property(s =>s.Email).HasMaxLength(200).IsRequired();
-    }
-  }
 }
