@@ -3,11 +3,19 @@ using University.Application.Interfaces;
 using University.Application.Services;
 using University.Infrastructure.Context;
 using University.Infrastructure.Repositories;
+using Mapster;
+using MapsterMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Server=localhost;Database=UniversityDb;Trusted_Connection=True;TrustServerCertificate=True;";
+
+
+var config = TypeAdapterConfig.GlobalSettings;
+config.Scan(typeof(StudentMappingConfig).Assembly); 
+builder.Services.AddSingleton(config);
+builder.Services.AddScoped<IMapper, ServiceMapper>();
 
 builder.Services.AddControllersWithViews();
 
